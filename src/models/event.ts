@@ -41,6 +41,11 @@ const EventSchema = new Schema<Event>(
         price:{
             type: Number,
             required: true
+        },
+        emails:{
+            type: String,
+            required: true
+
         }
         
     }

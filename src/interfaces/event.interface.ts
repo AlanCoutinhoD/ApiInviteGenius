@@ -8,6 +8,6 @@ export interface Event {
     type: string,
     numParticipants:Number,
     date: Date,
-    price: number
-    
+    price: number,
+    emails: string | undefined
 }

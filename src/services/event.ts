@@ -1,7 +1,6 @@
 import { Event } from "../interfaces/event.interface";
 import EventModel from "../models/event";
 const insertEvent =async (item:Event) => {
-
     const responseInsert = await EventModel.create(item);
     return responseInsert;
 }

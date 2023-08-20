@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { insertUser, getAllUsers,getUserByEmail,getUserPhoto,newPasswordUser,newPhotoUser } from "../services/user";
+import { insertUser, getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser,getUserEmail} from "../services/user";
 import path from "path";
 import fs from 'fs-extra';
 
@@ -47,7 +47,7 @@ const getUser = async({params}:Request, res: Response ) => {
 try{
    const email = params.email;
    const password = params.password;
-   const response = await getUserByEmail(email,password);
+   const response = await getUserByEmailAndPassword(email,password);
    
    res.send(response);
 }
@@ -114,10 +114,7 @@ try{
 
 const updatePhoto = async (req : Request, res: Response ) =>{
    const userId = req.params.userId;
-   const filename = req.file?.filename;
-   console.log(req.file);
-   console.log("Esto mandas")
-
+   const filename = req.file?.filename;   
    if(filename === undefined){
       return res.status(400).json({error: "La foto esta vacia"})
    }
@@ -135,5 +132,25 @@ const updatePhoto = async (req : Request, res: Response ) =>{
    } 
 
 }
+const getUserByEmail = async (req : Request, res: Response ) =>{
+   const userEmail = req.params.email;
+   console.log(userEmail);
+   try{   
+      const responseItem = await getUserEmail(userEmail);
+      if (responseItem === null){
+         return res.status(400).json({error: "operacion erronea no existe ningun usuario"})
 
-export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto};
+      }
+      else{
+         return res.send(responseItem.email);
+      }
+     
+
+     }
+      catch(e){
+         return res.status(400).json({error: "operacion erronea no existe ningun usuario"})
+     } 
+
+}
+
+export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto, getUserByEmail};

@@ -1,8 +1,13 @@
 import { User } from "../interfaces/user.interface";
 import UserModel from "../models/user"
 
+
+const getUserEmail = async(email: string)  =>{
+    const responseUser= UserModel.findOne({email: email})
+    return responseUser;
+}
+
 const newPhotoUser = async(_id: string, photo: string)  =>{
-    console.log(photo)
     const responseUser= UserModel.findByIdAndUpdate(_id,{ photo: photo })
     return responseUser;
 }
@@ -22,7 +27,7 @@ const getAllUsers = async() => {
     
 }
 
-const getUserByEmail = async(email:string,password:string) => {
+const getUserByEmailAndPassword = async(email:string,password:string) => {
     const responseUser = await UserModel.findOne({email:email,password:password})
     return responseUser;
     
@@ -35,4 +40,4 @@ const getUserPhoto = async(email:string) => {
 }
 
 
-export {insertUser,getAllUsers,getUserByEmail,getUserPhoto,newPasswordUser,newPhotoUser}
+export {insertUser,getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser, getUserEmail}

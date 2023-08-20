@@ -1,9 +1,15 @@
 import { Request, Response } from "express";
-import { insertUser, getAllUsers,getUserByEmail,getUserPhoto } from "../services/user";
+import { insertUser, getAllUsers,getUserByEmail,getUserPhoto,newPasswordUser,newPhotoUser } from "../services/user";
 import path from "path";
 import fs from 'fs-extra';
-//import UserModel from "../models/user";
+
+
+
 const multer = require ('multer');
+//import UserModel from "../models/user";
+
+
+
 
 const storage = multer.diskStorage({
    destination: function(_req: any,_file: any,cb: (arg0: null, arg1: string) => void){
@@ -62,16 +68,72 @@ const postUser = async (req : Request, res: Response ) =>{
    const filename = req.file?.filename;
    console.log(req.file);
    console.log("Esto mandas")
-    const userDate = {nameuser: req.body.nameuser,email:req.body.email,password:req.body.password,photo:filename}
-       try{   
-     const responseItem = insertUser(userDate);
-     res.send(responseItem);
-    }
-     catch(e){
-        res.status(500);
-        res.send('ERROR DE DATOS');
-            
-    }
+
+    if(req.file==undefined){
+      const userDate = {nameuser: req.body.nameuser,email:req.body.email,password:req.body.password,photo:"error.jpeg"}
+      try{   
+         const responseItem = insertUser(userDate);
+         res.send(responseItem);
+        }
+         catch(e){
+            res.status(500);
+            res.send('ERROR DE DATOS');
+                
+        } 
+   }
+    else{
+      const userDate = {nameuser: req.body.nameuser,email:req.body.email,password:req.body.password,photo:filename}
+      try{   
+         const responseItem = insertUser(userDate);
+         res.send(responseItem);
+        }
+         catch(e){
+            res.status(500);
+            res.send('ERROR DE DATOS');
+                
+        }
+   }
+   
 }
 
-export{getUsers, getUser, postUser, uploadphoto,getPhotoUser};
+const UpdatePasswordUser = async (req : Request, res: Response ) =>{
+   console.log(req.params);
+const userId = req.params.userId;
+const newPassword = req.params.password;
+try{   
+   const responseItem = await newPasswordUser(userId,newPassword);
+   res.send(responseItem);
+  }
+   catch(e){
+      res.status(500);
+      res.send('ERROR DE DATOS');
+          
+  } 
+ 
+}
+
+const updatePhoto = async (req : Request, res: Response ) =>{
+   const userId = req.params.userId;
+   const filename = req.file?.filename;
+   console.log(req.file);
+   console.log("Esto mandas")
+
+   if(filename === undefined){
+      return res.status(400).json({error: "La foto esta vacia"})
+   }
+
+   else{
+      try{   
+         const responseItem = await newPhotoUser(userId,filename);
+        console.log(responseItem)
+        return res.send(responseItem);
+        }
+         catch(e){
+
+            return res.status(400).json({error: "operacion erronea"})
+        } 
+   } 
+
+}
+
+export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto};

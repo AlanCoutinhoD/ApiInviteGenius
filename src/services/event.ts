@@ -5,6 +5,12 @@ const insertEvent =async (item:Event) => {
     return responseInsert;
 }
 
+const getEventByIdUser = async (_id:string) => {
+    const responseEvent = await EventModel.find({id_user:_id})
+    console.log(responseEvent)
+    return responseEvent;
+}
+
 
 const getAllEvents = async() => {
   
@@ -24,4 +30,4 @@ const getEventCategory =async (category:string) => {
     return responseEvent;
 }
 
-export{insertEvent,getAllEvents,getEventByName, getEventCategory}
+export{insertEvent,getAllEvents,getEventByName, getEventCategory, getEventByIdUser}

@@ -1,5 +1,4 @@
 export interface Event {
-    id_event: Number,
     id_user: string,
     nameEvent: string,
     imageRoute: string,

@@ -2,10 +2,6 @@ import { Schema,model } from "mongoose";
 import { Event } from "../interfaces/event.interface";
 const EventSchema = new Schema<Event>(
     {
-        id_event: {
-            type: Number,
-            required: false
-        },
        id_user: {
         type: String,
         required: true

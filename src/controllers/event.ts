@@ -6,6 +6,19 @@ import { sendEmail } from '../services/emailService';
 import * as xlsx from "xlsx";
 const multer = require ('multer');
 
+
+
+const storagePhotoInvitation = multer.diskStorage({
+    destination: function(_req: any,_file: any,cb: (arg0: null, arg1: string) => void){
+    cb(null, './invitationPhotos/')
+ },
+    filename: function(_req: any,file: { fieldname: string; originalname: string; },cb: (arg0: null, arg1: string) => void){
+       cb(null,`${Date.now()}-${file.originalname}`)
+    }
+ })
+
+
+
 const storage = multer.diskStorage({
 
     destination: function(_req: any, _file: any, cb: (arg0: null, arg1: string) => void){
@@ -29,8 +42,11 @@ const getEventsByIdUser = async ({params}:Request, res: Response) => {
     }
     }
 
-const uploademails = multer({storage : storage})
-exports.uploademails = uploademails.single('emails')
+    const uploadInvitationPhoto = multer({storagePhotoInvitation : storagePhotoInvitation})
+    exports.uploadInvitationPhoto = uploadInvitationPhoto.single('invitationPhoto')
+
+    const uploademails = multer({storage : storage})
+    exports.uploademails = uploademails.array('emails','imageRoute')
 
 
 const getEvent = async ({params}:Request, res: Response) => {
@@ -68,6 +84,11 @@ const getEvents = async(_req: Request, res: Response) => {
 const postEvent = async (req : Request, res: Response ) =>{
     const routefilename = "./useremails/" ;  
     const filename = req.file?.filename;
+    const files = req.files as Express.Multer.File[];
+
+    files.forEach(file => {
+        console.log(`Archivo recibido: ${file.originalname}`);
+      });
 
     if(filename === undefined){
         const eventDate= {id_user: req.body.id_user, nameEvent: req.body.nameEvent, imageRoute: req.body.imageRoute, category: req.body.category, adress: req.body.adress, type: req.body.type, numParticipants: req.body.numParticipants, date: req.body.date, price: req.body.price, emails:"null"}

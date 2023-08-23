@@ -1,7 +1,7 @@
 export interface Event {
     id_user: string,
     nameEvent: string,
-    imageRoute: string,
+    imageRoute: string |undefined,
     category: string,
     adress: string,
     type: string,

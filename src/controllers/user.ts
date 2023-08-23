@@ -3,12 +3,7 @@ import { insertUser, getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPassw
 import path from "path";
 import fs from 'fs-extra';
 
-
-
 const multer = require ('multer');
-//import UserModel from "../models/user";
-
-
 
 
 const storage = multer.diskStorage({
@@ -65,8 +60,9 @@ const getUsers = async(_req: Request, res: Response) => {
 }
 
 const postUser = async (req : Request, res: Response ) =>{
+   console.log(req.body);
    const filename = req.file?.filename;
-   console.log(req.file);
+   
    console.log("Esto mandas")
 
     if(req.file==undefined){

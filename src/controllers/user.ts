@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { insertUser, getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser,getUserEmail} from "../services/user";
+import { insertUser, getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser,getUserEmail,getUserName} from "../services/user";
 import path from "path";
 import fs from 'fs-extra';
 
@@ -17,6 +17,19 @@ const storage = multer.diskStorage({
 
 const uploadphoto = multer({storage : storage})
 exports.uploadphoto = uploadphoto.single('image')
+
+const getUserByName = async({params}:Request, res: Response ) =>{
+   const userName = params.nameuser;
+   const response = await getUserName(userName);
+
+   if(response == null){
+      res.send("ERROR no se encontro nada");
+   }
+   else{
+      res.send(response);
+   }
+  
+}
 
 const getPhotoUser= async({params}:Request, res: Response ) => {   
       const email = params.email;
@@ -149,4 +162,4 @@ const getUserByEmail = async (req : Request, res: Response ) =>{
 
 }
 
-export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto, getUserByEmail};
+export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto, getUserByEmail,getUserByName};

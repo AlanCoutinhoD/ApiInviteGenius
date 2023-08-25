@@ -7,6 +7,11 @@ const getUserEmail = async(email: string)  =>{
     return responseUser;
 }
 
+const getUserName = async(nameuser: string)  =>{
+    const responseUser= UserModel.findOne({nameuser: nameuser})
+    return responseUser;
+}
+
 const newPhotoUser = async(_id: string, photo: string)  =>{
     const responseUser= UserModel.findByIdAndUpdate(_id,{ photo: photo })
     return responseUser;
@@ -40,4 +45,4 @@ const getUserPhoto = async(email:string) => {
 }
 
 
-export {insertUser,getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser, getUserEmail}
+export {insertUser,getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser, getUserEmail,getUserName}

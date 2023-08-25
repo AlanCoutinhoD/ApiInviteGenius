@@ -6,7 +6,7 @@ export async function sendEmail(to: string, subject: string, text: string): Prom
     service: "Gmail",
     auth: {
       user: "alanemmanueldiazcoutino@gmail.com",
-      pass: "",
+      pass: "irzotyuxsywmnuse",
     },
   });
 

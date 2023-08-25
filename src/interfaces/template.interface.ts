@@ -3,5 +3,6 @@ export interface Template {
     categoria: string,
     descripcion: string,
     date: Date,
-    event_id: String
+    event_id: String,
+    image: string | undefined
   }

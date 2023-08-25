@@ -123,7 +123,6 @@ try{
 
 
 const updateNameUser = async (req : Request, res: Response ) =>{
-
    const nameuser = req.params.nameuser;
    const nameUserNew = req.params.newNameUser;
    try{   

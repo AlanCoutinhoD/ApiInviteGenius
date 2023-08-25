@@ -21,6 +21,13 @@ const newPasswordUser = async(nameuser: string, password: string)  =>{
 const responseUser= UserModel.findOneAndUpdate({nameuser},{password: password })
 return responseUser;
 }
+
+const newNameUser = async(nameuser: string, newNameUser: string)  =>{
+    const responseUser= UserModel.findOneAndUpdate({nameuser},{nameuser: newNameUser})
+    return responseUser;
+    }
+
+
 const insertUser = async( item: User)  => {
     const responseInsert = await UserModel.create(item);
     return responseInsert;
@@ -45,4 +52,4 @@ const getUserPhoto = async(nameuser:string) => {
 }
 
 
-export {insertUser,getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser, getUserEmail,getUserName}
+export {insertUser,getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser, getUserEmail,getUserName, newNameUser}

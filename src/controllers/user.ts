@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { insertUser, getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser,getUserEmail,getUserName} from "../services/user";
+import { insertUser, getAllUsers,getUserByEmailAndPassword,getUserPhoto,newPasswordUser,newPhotoUser,getUserEmail,getUserName,newNameUser} from "../services/user";
 import path from "path";
 import fs from 'fs-extra';
 
@@ -121,6 +121,23 @@ try{
  
 }
 
+
+const updateNameUser = async (req : Request, res: Response ) =>{
+
+   const nameuser = req.params.nameuser;
+   const nameUserNew = req.params.newNameUser;
+   try{   
+      const responseItem = await newNameUser(nameuser,nameUserNew);
+      res.send(responseItem);
+     }
+      catch(e){
+         res.status(500);
+         res.send('ERROR DE DATOS');
+             
+     } 
+    
+   }
+
 const updatePhoto = async (req : Request, res: Response ) =>{
    const nameuser = req.params.nameuser;
    console.log(nameuser)
@@ -163,4 +180,4 @@ const getUserByEmail = async (req : Request, res: Response ) =>{
 
 }
 
-export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto, getUserByEmail,getUserByName};
+export{getUsers,getUser,postUser,uploadphoto,getPhotoUser,UpdatePasswordUser,updatePhoto, getUserByEmail,getUserByName, updateNameUser};

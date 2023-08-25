@@ -5,10 +5,10 @@ const router = Router();
 
 router.get("/usuario/:email/:password",getUser);
 router.get("/allUsers",getUsers);
-router.get("/photoUser/:email",getPhotoUser)
+router.get("/photoUser/:nameuser",getPhotoUser)
 router.post("/registrarUsuario",uploadphoto,postUser);
-router.put("/UserUpdatePassword/:userId/:password",UpdatePasswordUser);
-router.put("/UserUpdatePhoto/:userId",uploadphoto,updatePhoto);
+router.put("/UserUpdatePassword/:nameuser/:password",UpdatePasswordUser);
+router.put("/UserUpdatePhoto/:nameuser",uploadphoto,updatePhoto);
 router.get("/getEmail/:email",getUserByEmail)
 router.get("/getUserByname/:nameuser",getUserByName);
 export {router};

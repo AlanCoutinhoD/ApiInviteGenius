@@ -12,13 +12,13 @@ const getUserName = async(nameuser: string)  =>{
     return responseUser;
 }
 
-const newPhotoUser = async(_id: string, photo: string)  =>{
-    const responseUser= UserModel.findByIdAndUpdate(_id,{ photo: photo })
+const newPhotoUser = async(nameuser: string, photo: string)  =>{
+    const responseUser= UserModel.findOneAndUpdate({nameuser},{ photo: photo })
     return responseUser;
 }
 
-const newPasswordUser = async(_id: string, password: string)  =>{
-const responseUser= UserModel.findByIdAndUpdate(_id,{ password: password })
+const newPasswordUser = async(nameuser: string, password: string)  =>{
+const responseUser= UserModel.findOneAndUpdate({nameuser},{password: password })
 return responseUser;
 }
 const insertUser = async( item: User)  => {
@@ -38,8 +38,8 @@ const getUserByEmailAndPassword = async(email:string,password:string) => {
     
 }
 
-const getUserPhoto = async(email:string) => {
-    const responseUser = await UserModel.findOne({email:email})
+const getUserPhoto = async(nameuser:string) => {
+    const responseUser = await UserModel.findOne({nameuser:nameuser})
     return responseUser;
     
 }

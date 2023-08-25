@@ -32,8 +32,8 @@ const getUserByName = async({params}:Request, res: Response ) =>{
 }
 
 const getPhotoUser= async({params}:Request, res: Response ) => {   
-      const email = params.email;
-      const response = await getUserPhoto(email);
+      const nameuser = params.nameuser;
+      const response = await getUserPhoto(nameuser);
       const image = response?.photo;
       const pathImage = path.resolve( __dirname, `../../userphotos/${image}`);
       const pathImageError = path.resolve(__dirname,`../../userphotos/error.jpeg`)
@@ -106,11 +106,11 @@ const postUser = async (req : Request, res: Response ) =>{
 }
 
 const UpdatePasswordUser = async (req : Request, res: Response ) =>{
-   console.log(req.params);
-const userId = req.params.userId;
+
+const username = req.params.nameuser;
 const newPassword = req.params.password;
 try{   
-   const responseItem = await newPasswordUser(userId,newPassword);
+   const responseItem = await newPasswordUser(username,newPassword);
    res.send(responseItem);
   }
    catch(e){
@@ -122,7 +122,8 @@ try{
 }
 
 const updatePhoto = async (req : Request, res: Response ) =>{
-   const userId = req.params.userId;
+   const nameuser = req.params.nameuser;
+   console.log(nameuser)
    const filename = req.file?.filename;   
    if(filename === undefined){
       return res.status(400).json({error: "La foto esta vacia"})
@@ -130,7 +131,7 @@ const updatePhoto = async (req : Request, res: Response ) =>{
 
    else{
       try{   
-         const responseItem = await newPhotoUser(userId,filename);
+         const responseItem = await newPhotoUser(nameuser,filename);
         console.log(responseItem)
         return res.send(responseItem);
         }
